@@ -6,6 +6,7 @@
 #include "Engine/World.h"
 
 #include "GameBase/BasicUtility/ITTBasicUtility.h"
+#include "GameBase/GameManager/ITTSingletonManager.h"
 
 
 UITTGameInstanceBase::UITTGameInstanceBase()
@@ -125,19 +126,38 @@ void UITTGameInstanceBase::DestroyBasicUtility()
 
 bool UITTGameInstanceBase::CreateGameManagers()
 {
-	return true;
+	if (TObjectPtr<UITTSingletonManager> SingletonManager = UITTSingletonManager::CreateInstance())
+	{
+		SingletonManager->BuiltInInitializeSingletons();
+		return true;
+	}
+	
+	return false;
 }
 
 void UITTGameInstanceBase::InitializeGameManagers()
 {
+	if (TObjectPtr<UITTSingletonManager> SingletonManager = UITTSingletonManager::GetInstance())
+	{
+		SingletonManager->InitializeSingletons();
+	}
 }
 
 void UITTGameInstanceBase::TickGameManagers(float DeltaSeconds)
 {
+	if (TObjectPtr<UITTSingletonManager> SingletonManager = UITTSingletonManager::GetInstance())
+	{
+		SingletonManager->TickSingletons(DeltaSeconds);
+	}
 }
 
 void UITTGameInstanceBase::DestroyGameManagers()
 {
+	if (TObjectPtr<UITTSingletonManager> SingletonManager = UITTSingletonManager::GetInstance())
+	{
+		SingletonManager->FinalizeSingletons();
+		UITTSingletonManager::DestroyInstance();
+	}
 }
 
 bool UITTGameInstanceBase::RegisterTick()
