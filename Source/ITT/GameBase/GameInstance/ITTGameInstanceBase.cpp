@@ -5,6 +5,8 @@
 
 #include "Engine/World.h"
 
+#include "GameBase/BasicUtility/ITTBasicUtility.h"
+
 
 UITTGameInstanceBase::UITTGameInstanceBase()
 {
@@ -104,11 +106,21 @@ void UITTGameInstanceBase::ProcessFinalize()
 
 bool UITTGameInstanceBase::CreateBasicUtility()
 {
-	return true;
+	if (TObjectPtr<UITTBasicUtility> BasicUtility = UITTBasicUtility::CreateInstance())
+	{
+		return BasicUtility->Initialize(this);
+	}
+	
+	return false;
 }
 
 void UITTGameInstanceBase::DestroyBasicUtility()
 {
+	if (TObjectPtr<UITTBasicUtility> BasicUtility = UITTBasicUtility::GetInstance())
+	{
+		BasicUtility->Finalize();
+		UITTBasicUtility::DestroyInstance();
+	}
 }
 
 bool UITTGameInstanceBase::CreateGameManagers()
