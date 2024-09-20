@@ -49,5 +49,10 @@ protected:
 	
 	UPROPERTY(Category = ITTComponent, VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<class UCameraComponent> FollowCamera;
+
+	
+	// -- Input -- //
+	UPROPERTY(Category = ITTComponent, VisibleAnywhere, BlueprintReadOnly)
+	TObjectPtr<class UITTInputHelperComponent> InputHelperComponent;
 	// =============================== //
 };

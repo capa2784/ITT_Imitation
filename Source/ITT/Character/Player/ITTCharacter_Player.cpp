@@ -8,6 +8,8 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
+#include "Component/Character/Input/ITTInputHelperComponent.h"
+
 
 AITTCharacter_Player::AITTCharacter_Player()
 {
@@ -35,6 +37,9 @@ AITTCharacter_Player::AITTCharacter_Player()
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	FollowCamera->bUsePawnControlRotation = false;
+	
+	// Create input helper component
+	InputHelperComponent = CreateDefaultSubobject<UITTInputHelperComponent>(TEXT("InputHelperComponent"));
 }
 
 
@@ -53,5 +58,7 @@ void AITTCharacter_Player::Tick(float DeltaTime)
 void AITTCharacter_Player::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	
+	InputHelperComponent->SetupPlayerInputComponent(PlayerInputComponent);
 }
 // =========================== //
