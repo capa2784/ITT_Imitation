@@ -96,4 +96,15 @@ UWorld* UITTBasicUtility::GetITTWorld()
 	return nullptr;
 }
 // ================================== //
+
+
+// ========== GameConfig ========== //
+const FString& UITTBasicUtility::GetTableListPath()
+{
+	ITTCHECK(Instance);
+	ITTCHECK(Instance->ITTGameConfig);
+	
+	return Instance->ITTGameConfig->GetTableListPath();
+}
+// ================================ //
 // ================================================ //

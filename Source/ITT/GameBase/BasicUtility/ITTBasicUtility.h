@@ -43,6 +43,10 @@ public:
 	
 	static class UWorld* GetITTWorld();
 	// ================================== //
+
+	// ========== GameConfig ========== //
+	static const FString& GetTableListPath();
+	// ================================ //
 	// ================================================ //
 
 	

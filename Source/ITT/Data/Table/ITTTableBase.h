@@ -4,30 +4,37 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Object.h"
-#include "ITTGameConfig.generated.h"
+#include "ITTTableBase.generated.h"
 
 /**
  * 
  */
-UCLASS(Config=Game)
-class ITT_API UITTGameConfig : public UObject
+UCLASS(Abstract)
+class ITT_API UITTTableBase : public UObject
 {
 	GENERATED_BODY()
 
 public:
-	UITTGameConfig();
+	UITTTableBase();
 
 	
+	virtual void BuiltInInitialize(class UDataTable* _DataTable);
+	
+	virtual void Initialize();
+
+	virtual void Finalize();
+
+
 	// ==================== Getter ==================== //
 	// ========== Table ========== //
-	const FString& GetTableListPath() const { return TableListPath; }
+	UDataTable* GetDataTable() const { return DataTable; }
 	// =========================== //
 	// ================================================ //
 
 	
-private:
+protected:
 	// ========== Table ========== //
-	UPROPERTY(Config)
-	FString TableListPath;
+	UPROPERTY()
+	UDataTable* DataTable;
 	// =========================== //
 };
