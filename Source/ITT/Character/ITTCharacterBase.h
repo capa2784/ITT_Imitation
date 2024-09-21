@@ -16,7 +16,7 @@ class ITT_API AITTCharacterBase : public ACharacter
 	GENERATED_BODY()
 
 public:
-	AITTCharacterBase();
+	AITTCharacterBase(const FObjectInitializer& ObjectInitializer);
 
 	
 protected:

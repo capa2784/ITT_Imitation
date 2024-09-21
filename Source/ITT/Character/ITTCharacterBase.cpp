@@ -3,8 +3,11 @@
 
 #include "ITTCharacterBase.h"
 
+#include "Component/Character/Movement/ITTCharacterMovementComponent.h"
 
-AITTCharacterBase::AITTCharacterBase()
+
+AITTCharacterBase::AITTCharacterBase(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer.SetDefaultSubobjectClass<UITTCharacterMovementComponent>(ACharacter::CharacterMovementComponentName))
 {
 	PrimaryActorTick.bCanEverTick = true;
 }

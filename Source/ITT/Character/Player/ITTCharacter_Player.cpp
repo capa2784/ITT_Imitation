@@ -6,12 +6,13 @@
 #include "Components/CapsuleComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "GameFramework/CharacterMovementComponent.h"
 
 #include "Component/Character/Input/ITTInputHelperComponent.h"
+#include "Component/Character/Movement/ITTCharacterMovementComponent_Player.h"
 
 
-AITTCharacter_Player::AITTCharacter_Player()
+AITTCharacter_Player::AITTCharacter_Player(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer.SetDefaultSubobjectClass<UITTCharacterMovementComponent_Player>(ACharacter::CharacterMovementComponentName))
 {
 	PrimaryActorTick.bCanEverTick = true;
 
@@ -22,10 +23,6 @@ AITTCharacter_Player::AITTCharacter_Player()
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
-
-	// Configure character movement
-	GetCharacterMovement()->bOrientRotationToMovement = true;
-	GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.0f, 0.0f);
 	
 	// Create a camera boom
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
