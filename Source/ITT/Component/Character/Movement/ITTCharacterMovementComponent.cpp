@@ -73,7 +73,7 @@ void UITTCharacterMovementComponent::SetMovementMode(EMovementMode NewMovementMo
 	if (MovementModeMachine)
 	{
 		uint8 MainMode = static_cast<uint8>(NewMovementMode);
-		uint8 SubMode = NewMovementMode;
+		uint8 SubMode = NewCustomMode;
 
 		if (UITTCharacterFunctionLibrary::CheckMovementModeValid(FITTMovementMode(MainMode, SubMode)))
 		{
