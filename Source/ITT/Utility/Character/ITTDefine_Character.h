@@ -73,6 +73,17 @@ enum class EITTSubMovementMode_Custom : uint8
 	EITTSubMovementMode_Custom_Max
 };
 // =================================== //
+
+
+// ========== Stat ========== //
+UENUM(BlueprintType)
+enum class EITTCharacterStat : uint8
+{
+	None,
+
+	EITTCharacterStat_Max
+};
+// ========================== //
 // ============================================== //
 
 
@@ -131,4 +142,41 @@ struct FITTMovementMode
 
 uint32 GetTypeHash(const FITTMovementMode& MovementMode);
 // =================================== //
+
+
+// ========== Stat ========== //
+USTRUCT(Blueprintable)
+struct FITTCharacterStat
+{
+	GENERATED_BODY()
+
+	FITTCharacterStat()
+	{
+	}
+
+	virtual ~FITTCharacterStat() {}
+
+
+	virtual float GetCharacterStat(EITTCharacterStat StatName) const;
+
+	virtual void CopyStat(const FITTCharacterStat* Original, bool ExactClass = true);
+};
+
+USTRUCT(Blueprintable)
+struct FITTCharacterStat_Player : public FITTCharacterStat
+{
+	GENERATED_BODY()
+
+	FITTCharacterStat_Player()
+	{
+	}
+
+	virtual ~FITTCharacterStat_Player() override {}
+
+	
+	virtual float GetCharacterStat(EITTCharacterStat StatName) const override;
+
+	virtual void CopyStat(const FITTCharacterStat* Original, bool ExactClass = true) override;
+};
+// ========================== //
 // ================================================ //

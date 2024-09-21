@@ -9,10 +9,12 @@
 
 #include "Component/Character/Input/ITTInputHelperComponent.h"
 #include "Component/Character/Movement/ITTCharacterMovementComponent_Player.h"
+#include "Component/Character/Stat/ITTCharacterStatComponent_Player.h"
 
 
 AITTCharacter_Player::AITTCharacter_Player(const FObjectInitializer& ObjectInitializer)
-	: Super(ObjectInitializer.SetDefaultSubobjectClass<UITTCharacterMovementComponent_Player>(ACharacter::CharacterMovementComponentName))
+	: Super(ObjectInitializer.SetDefaultSubobjectClass<UITTCharacterMovementComponent_Player>(ACharacter::CharacterMovementComponentName)
+				.SetDefaultSubobjectClass<UITTCharacterStatComponent_Player>(TEXT("CharacterStatComponent")))
 {
 	PrimaryActorTick.bCanEverTick = true;
 

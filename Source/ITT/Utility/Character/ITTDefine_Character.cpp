@@ -3,6 +3,8 @@
 
 #include "ITTDefine_Character.h"
 
+#include "ITTUtilityFunctionLibrary.h"
+
 
 // ==================== Struct ==================== //
 // ========== Movement Mode ========== //
@@ -67,4 +69,59 @@ uint32 GetTypeHash(const FITTMovementMode& MovementMode)
 	return FCrc::MemCrc32(&MovementMode, sizeof(FITTMovementMode));
 }
 // =================================== //
+
+
+// ========== Stat ========== //
+// ----- FITTCharacterStat ----- //
+float FITTCharacterStat::GetCharacterStat(EITTCharacterStat StatName) const
+{
+	switch (StatName)
+	{
+	case EITTCharacterStat::None :
+		{
+			ITTLOG(Error, TEXT("Get character stat 'None'"));
+			return 0.f;
+		}
+	
+	default:
+		{
+			FString EnumName = UITTUtilityFunctionLibrary::ConvertEnumToString(TEXT("EITTCharacterStat"), StatName);
+			ITTLOG(Error, TEXT("Stat doesn't exist [StatName : %s]"), *EnumName);
+			return 0.f;
+		}
+	}
+}
+
+void FITTCharacterStat::CopyStat(const FITTCharacterStat* Original, bool ExactClass)
+{
+}
+
+
+// ----- FITTCharacterStat_Player ----- //
+float FITTCharacterStat_Player::GetCharacterStat(EITTCharacterStat StatName) const
+{
+	/* switch (StatName)
+	{
+	default:
+		{
+			return FITTCharacterStat::GetCharacterStat(StatName);
+		}
+	} */
+
+	return FITTCharacterStat::GetCharacterStat(StatName);
+}
+
+void FITTCharacterStat_Player::CopyStat(const FITTCharacterStat* Original, bool ExactClass)
+{
+	FITTCharacterStat::CopyStat(Original);
+	
+	if (const FITTCharacterStat_Player* Original_Cast = static_cast<const FITTCharacterStat_Player*>(Original))
+	{
+	}
+	else
+	{
+		ITTCHECKF(ExactClass, TEXT("Cast as the wrong type"));
+	}
+}
+// ========================== //
 // ================================================ //

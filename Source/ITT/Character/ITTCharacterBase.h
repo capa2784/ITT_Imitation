@@ -24,4 +24,20 @@ protected:
 
 public:
 	virtual void Tick(float DeltaTime) override;
+
+
+	// ==================== Getter ==================== //
+	// ========== Component ========== //
+	// -- Stat -- //
+	class UITTCharacterStatComponent* GetCharacterStatComponent() const { return CharacterStatComponent; }
+	// =============================== //
+	// ================================================ //
+
+	
+protected:
+	// ========== Component ========== //
+	// -- Stat -- //
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = ITTComponent, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<class UITTCharacterStatComponent> CharacterStatComponent;
+	// =============================== //
 };
