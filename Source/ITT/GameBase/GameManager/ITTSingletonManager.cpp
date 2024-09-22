@@ -6,6 +6,7 @@
 #include "ITTSingleton.h"
 
 #include "ITTTableManager.h"
+#include "ITTLevelManager.h"
 
 
 TObjectPtr<UITTSingletonManager> UITTSingletonManager::Instance = nullptr;
@@ -116,6 +117,7 @@ void UITTSingletonManager::RegisterSingletons()
 	
 	// Singletons.Emplace([Class]::CreateInstance());
 	Singletons.Emplace(UITTTableManager::CreateInstance());
+	Singletons.Emplace(UITTLevelManager::CreateInstance());
 }
 
 void UITTSingletonManager::RegisterSingletonsForTick()
@@ -131,6 +133,7 @@ void UITTSingletonManager::UnregisterSingletons()
 	SingletonsForTick.Reset();
 	
 	// [Class]::DestroyInstance();
+	UITTLevelManager::DestroyInstance();
 	UITTTableManager::DestroyInstance();
 }
 // ================================ //
