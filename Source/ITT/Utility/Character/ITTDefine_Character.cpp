@@ -83,6 +83,26 @@ float FITTCharacterStat::GetCharacterStat(EITTCharacterStat StatName) const
 			return 0.f;
 		}
 	
+	case EITTCharacterStat::MinWalkSpeed :
+		{
+			return MinWalkSpeed;
+		}
+
+	case EITTCharacterStat::MaxJogSpeed:
+		{
+			return MaxJogSpeed;
+		}
+		
+	case EITTCharacterStat::MaxWalkSpeedPerMaxJogSpeed :
+		{
+			return MaxWalkSpeedPerMaxJogSpeed;
+		}
+		
+	case EITTCharacterStat::MaxSprintSpeed :
+		{
+			return MaxSprintSpeed;
+		}
+		
 	default:
 		{
 			FString EnumName = UITTUtilityFunctionLibrary::ConvertEnumToString(TEXT("EITTCharacterStat"), StatName);
@@ -94,21 +114,28 @@ float FITTCharacterStat::GetCharacterStat(EITTCharacterStat StatName) const
 
 void FITTCharacterStat::CopyStat(const FITTCharacterStat* Original, bool ExactClass)
 {
+	MinWalkSpeed = Original->MinWalkSpeed;
+	MaxJogSpeed = Original->MaxJogSpeed;
+	MaxWalkSpeedPerMaxJogSpeed = Original->MaxWalkSpeedPerMaxJogSpeed;
+	MaxSprintSpeed = Original->MaxSprintSpeed;
 }
 
 
 // ----- FITTCharacterStat_Player ----- //
 float FITTCharacterStat_Player::GetCharacterStat(EITTCharacterStat StatName) const
 {
-	/* switch (StatName)
+	switch (StatName)
 	{
+	case EITTCharacterStat::MaxCrouchSpeed :
+		{
+			return MaxCrouchSpeed;
+		}
+		
 	default:
 		{
 			return FITTCharacterStat::GetCharacterStat(StatName);
 		}
-	} */
-
-	return FITTCharacterStat::GetCharacterStat(StatName);
+	}
 }
 
 void FITTCharacterStat_Player::CopyStat(const FITTCharacterStat* Original, bool ExactClass)
@@ -117,6 +144,7 @@ void FITTCharacterStat_Player::CopyStat(const FITTCharacterStat* Original, bool 
 	
 	if (const FITTCharacterStat_Player* Original_Cast = static_cast<const FITTCharacterStat_Player*>(Original))
 	{
+		MaxCrouchSpeed = Original_Cast->MaxCrouchSpeed;
 	}
 	else
 	{

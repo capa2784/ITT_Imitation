@@ -81,6 +81,12 @@ enum class EITTCharacterStat : uint8
 {
 	None,
 
+	MinWalkSpeed,
+	MaxJogSpeed,
+	MaxWalkSpeedPerMaxJogSpeed,
+	MaxSprintSpeed,
+	MaxCrouchSpeed,
+	
 	EITTCharacterStat_Max
 };
 // ========================== //
@@ -151,6 +157,7 @@ struct FITTCharacterStat
 	GENERATED_BODY()
 
 	FITTCharacterStat()
+		: MinWalkSpeed(0.03f), MaxJogSpeed(500.f), MaxWalkSpeedPerMaxJogSpeed(0.4f), MaxSprintSpeed(1000.f)
 	{
 	}
 
@@ -160,6 +167,19 @@ struct FITTCharacterStat
 	virtual float GetCharacterStat(EITTCharacterStat StatName) const;
 
 	virtual void CopyStat(const FITTCharacterStat* Original, bool ExactClass = true);
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float MinWalkSpeed;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float MaxJogSpeed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float MaxWalkSpeedPerMaxJogSpeed;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float MaxSprintSpeed;
 };
 
 USTRUCT(Blueprintable)
@@ -168,6 +188,7 @@ struct FITTCharacterStat_Player : public FITTCharacterStat
 	GENERATED_BODY()
 
 	FITTCharacterStat_Player()
+		: MaxCrouchSpeed(200.f)
 	{
 	}
 
@@ -177,6 +198,10 @@ struct FITTCharacterStat_Player : public FITTCharacterStat
 	virtual float GetCharacterStat(EITTCharacterStat StatName) const override;
 
 	virtual void CopyStat(const FITTCharacterStat* Original, bool ExactClass = true) override;
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float MaxCrouchSpeed;
 };
 // ========================== //
 // ================================================ //

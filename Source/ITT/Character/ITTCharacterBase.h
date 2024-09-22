@@ -30,6 +30,10 @@ public:
 	// ========== Component ========== //
 	// -- Stat -- //
 	class UITTCharacterStatComponent* GetCharacterStatComponent() const { return CharacterStatComponent; }
+
+	
+	// -- Animation -- //
+	class UITTAnimationHelperComponent* GetAnimationHelperComponent() const { return AnimationHelperComponent; }
 	// =============================== //
 	// ================================================ //
 
@@ -39,5 +43,10 @@ protected:
 	// -- Stat -- //
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = ITTComponent, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<class UITTCharacterStatComponent> CharacterStatComponent;
+
+	
+	// -- Animation -- //
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = ITTComponent, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<class UITTAnimationHelperComponent> AnimationHelperComponent;
 	// =============================== //
 };

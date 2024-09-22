@@ -5,6 +5,7 @@
 
 #include "Component/Character/Movement/ITTCharacterMovementComponent.h"
 #include "Component/Character/Stat/ITTCharacterStatComponent.h"
+#include "Component/Character/Animation/ITTAnimationHelperComponent.h"
 
 
 AITTCharacterBase::AITTCharacterBase(const FObjectInitializer& ObjectInitializer)
@@ -14,6 +15,9 @@ AITTCharacterBase::AITTCharacterBase(const FObjectInitializer& ObjectInitializer
 	
 	// Create character stat component
 	CharacterStatComponent = CreateDefaultSubobject<UITTCharacterStatComponent>(TEXT("CharacterStatComponent"));
+
+	// Create animation helper component
+	AnimationHelperComponent = CreateDefaultSubobject<UITTAnimationHelperComponent>(TEXT("AnimationHelperComponent"));
 }
 
 
