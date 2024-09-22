@@ -99,12 +99,23 @@ UWorld* UITTBasicUtility::GetITTWorld()
 
 
 // ========== GameConfig ========== //
+// -- Table -- //
 const FString& UITTBasicUtility::GetTableListPath()
 {
 	ITTCHECK(Instance);
 	ITTCHECK(Instance->ITTGameConfig);
 	
 	return Instance->ITTGameConfig->GetTableListPath();
+}
+
+
+// -- Scene -- //
+uint32 UITTBasicUtility::GetFirstSceneIndex()
+{
+	ITTCHECK(Instance);
+	ITTCHECK(Instance->ITTGameConfig);
+	
+	return Instance->ITTGameConfig->GetFirstSceneIndex();
 }
 // ================================ //
 // ================================================ //
