@@ -6,6 +6,7 @@
 #include "Character/ITTCharacterFunctionLibrary.h"
 
 #include "Character/ITTCharacterBase.h"
+#include "Component/Character/Stat/ITTCharacterStatComponent.h"
 
 #include "StateMachine/ITTStateMachine.h"
 
@@ -57,6 +58,9 @@ void UITTCharacterMovementComponent::CreateMovementModeMachine()
 	
 	MovementModeMachine = ITTNewObject<UITTStateMachine>(UITTStateMachine::StaticClass());
 	MovementModeMachine->AddToRoot();
+
+	// Bind OnChange delegate
+	MovementModeMachine->OnChangeStateDelegate = FITTOnChangeStateDelegate::CreateUObject(this, &UITTCharacterMovementComponent::OnChangeMovementMode);
 }
 
 void UITTCharacterMovementComponent::DestroyMovementModeMachine()
@@ -115,4 +119,132 @@ void UITTCharacterMovementComponent::SetITTMovementMode(uint8 MainMode, uint8 Su
 		SetITTMovementMode(FITTMovementMode(MainMode, SubMode, AdditiveMode1, AdditiveMode2), bChangeImmediately);
 	}
 }
+
+
+// -- OnChange -- //
+void UITTCharacterMovementComponent::OnChangeMovementMode(int64 PreviousMovementModeId, int64 CurrentMovementModeId)
+{
+	int32 DataIndex = -1;
+	
+	FITTMovementMode PreviousMovementMode(static_cast<uint32>(PreviousMovementModeId));
+	FITTMovementMode CurrentMovementMode(static_cast<uint32>(CurrentMovementModeId));
+
+	// Previous Movement Mode
+	if (IsSprintMode(PreviousMovementMode, DataIndex))
+	{
+		OnStopSprint(DataIndex);
+	}
+	
+	// Current Movement Mode
+	if (IsSprintMode(CurrentMovementMode, DataIndex))
+	{
+		OnStartSprint(DataIndex);
+	}
+}
 // =========================================== //
+
+
+// ========== Movement ========== //
+// -- Sprint -- //
+void UITTCharacterMovementComponent::StartSprint()
+{
+	FITTMovementMode SprintMode;
+	if (CanSprint(SprintMode))
+	{
+		SetITTMovementMode(SprintMode);
+	}
+}
+
+void UITTCharacterMovementComponent::StopSprint()
+{
+	FITTMovementMode NoneSprintMode;
+	if (IsSprint(NoneSprintMode))
+	{
+		SetITTMovementMode(NoneSprintMode);
+	}
+}
+
+bool UITTCharacterMovementComponent::CanSprint(FITTMovementMode& OutSprintMode) const
+{
+	int32 DataIndex = -1;
+	
+	FITTMovementMode CurrentMovementMode(static_cast<uint32>(MovementModeMachine->GetCurrentStateId()));
+
+	if (IsNoneSprintMode(CurrentMovementMode, DataIndex))
+	{
+		OutSprintMode = SprintModeDatas[DataIndex].SprintMode;
+		return true;
+	}
+
+	return false;
+}
+
+bool UITTCharacterMovementComponent::IsSprint(FITTMovementMode& OutNoneSprintMode) const
+{
+	int32 DataIndex = -1;
+	
+	FITTMovementMode CurrentMovementMode(static_cast<uint32>(MovementModeMachine->GetCurrentStateId()));
+
+	if (IsSprintMode(CurrentMovementMode, DataIndex))
+	{
+		OutNoneSprintMode = SprintModeDatas[DataIndex].NoneSprintMode;
+		return true;
+	}
+
+	return false;
+}
+
+bool UITTCharacterMovementComponent::IsNoneSprintMode(const FITTMovementMode& InMovementMode, int32& OutDataIndex) const
+{
+	for (int32 i = 0; i < SprintModeDatas.Num(); ++i)
+	{
+		if (SprintModeDatas[i].NoneSprintMode == InMovementMode)
+		{
+			OutDataIndex = i;
+			return true;
+		}
+	}
+
+	OutDataIndex = -1;
+	return false;
+}
+
+bool UITTCharacterMovementComponent::IsSprintMode(const FITTMovementMode& InMovementMode, int32& OutDataIndex) const
+{
+	for (int32 i = 0; i < SprintModeDatas.Num(); ++i)
+	{
+		if (SprintModeDatas[i].SprintMode == InMovementMode)
+		{
+			OutDataIndex = i;
+			return true;
+		}
+	}
+
+	OutDataIndex = -1;
+	return false;
+}
+
+void UITTCharacterMovementComponent::OnStartSprint(int32 DataIndex)
+{
+	if (AITTCharacterBase* CharacterBase = Cast<AITTCharacterBase>(GetOwner()))
+	{
+		if (UITTCharacterStatComponent* CharacterStatComponent = CharacterBase->GetCharacterStatComponent())
+		{
+			EITTCharacterStat SprintSpeedStat = SprintModeDatas[DataIndex].SprintSpeedStat;
+			MaxWalkSpeed = CharacterStatComponent->GetCharacterStat(SprintSpeedStat);
+		}
+	}
+}
+
+void UITTCharacterMovementComponent::OnStopSprint(int32 DataIndex)
+{
+	if (AITTCharacterBase* CharacterBase = Cast<AITTCharacterBase>(GetOwner()))
+	{
+		if (UITTCharacterStatComponent* CharacterStatComponent = CharacterBase->GetCharacterStatComponent())
+		{
+			EITTCharacterStat SprintSpeedStat = SprintModeDatas[DataIndex].NoneSprintSpeedStat;
+			MaxWalkSpeed = CharacterStatComponent->GetCharacterStat(SprintSpeedStat);
+		}
+	}
+}
+// ============================== //

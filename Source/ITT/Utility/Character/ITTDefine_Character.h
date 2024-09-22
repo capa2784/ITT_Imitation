@@ -149,6 +149,30 @@ struct FITTMovementMode
 uint32 GetTypeHash(const FITTMovementMode& MovementMode);
 // =================================== //
 
+// ========== Movement Mode Data ========== //
+USTRUCT(Blueprintable)
+struct FITTSprintModeData
+{
+	GENERATED_BODY()
+	
+	FITTSprintModeData()
+	{
+	}
+	
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FITTMovementMode NoneSprintMode;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	EITTCharacterStat NoneSprintSpeedStat;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FITTMovementMode SprintMode;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	EITTCharacterStat SprintSpeedStat;
+};
+// ======================================== //
 
 // ========== Stat ========== //
 USTRUCT(Blueprintable)

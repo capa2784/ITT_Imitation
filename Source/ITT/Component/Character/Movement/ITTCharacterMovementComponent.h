@@ -46,8 +46,33 @@ public:
 	{
 		SetITTMovementMode(static_cast<uint8>(MainMode), SubMode, AdditiveMode1, AdditiveMode2, bChangeImmediately);
 	}
-	// =========================================== //
+
 	
+	// -- OnChange -- //
+	UFUNCTION()
+	virtual void OnChangeMovementMode(int64 PreviousMovementModeId, int64 CurrentMovementModeId);
+	// =========================================== //
+
+	
+	// ========== Movement ========== //
+	// -- Sprint -- //
+	virtual void StartSprint();
+
+	virtual void StopSprint();
+	
+	virtual bool CanSprint(FITTMovementMode& OutSprintMode) const;
+
+	virtual bool IsSprint(FITTMovementMode& OutNoneSprintMode) const;
+
+	virtual bool IsNoneSprintMode(const FITTMovementMode& InMovementMode, int32& OutDataIndex) const;
+	
+	virtual bool IsSprintMode(const FITTMovementMode& InMovementMode, int32& OutDataIndex) const;
+	
+	virtual void OnStartSprint(int32 DataIndex);
+
+	virtual void OnStopSprint(int32 DataIndex);
+	// ============================== //
+
 	
 	// ==================== Getter ==================== //
 	// ========== Movement Mode Machine ========== //
@@ -60,4 +85,11 @@ protected:
 	// ========== Movement Mode Machine ========== //
 	TObjectPtr<class UITTStateMachine> MovementModeMachine;
 	// =========================================== //
+
+	
+	// ========== Movement ========== //
+	// -- Sprint -- //
+	UPROPERTY(Category=ITT, EditAnywhere)
+	TArray<FITTSprintModeData> SprintModeDatas;
+	// ============================== //
 };

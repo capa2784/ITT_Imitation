@@ -11,6 +11,7 @@
 #include "Components/InputComponent.h"
 
 #include "Character/Player/ITTCharacter_Player.h"
+#include "Component/Character/Movement/ITTCharacterMovementComponent.h"
 
 
 UITTInputHelperComponent::UITTInputHelperComponent()
@@ -35,7 +36,7 @@ void UITTInputHelperComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 void UITTInputHelperComponent::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Character = Cast<AITTCharacter_Player>(GetOwner());
-
+	CharacterMovementComponent = Cast<UITTCharacterMovementComponent>(Character->GetMovementComponent());
 	
 	// Add Input Mapping Context
 	if (Character.IsValid())
@@ -151,10 +152,18 @@ void UITTInputHelperComponent::InputStopSwing_GrindGrapple(const FInputActionVal
 
 void UITTInputHelperComponent::InputToggleSprint(const FInputActionValue& Value)
 {
+	if (Character != nullptr && CharacterMovementComponent != nullptr)
+	{
+		CharacterMovementComponent->StartSprint();
+	}
 }
 
 void UITTInputHelperComponent::InputStopToggleSprint(const FInputActionValue& Value)
 {
+	if (Character != nullptr && CharacterMovementComponent != nullptr)
+	{
+		CharacterMovementComponent->StopSprint();
+	}
 }
 
 
