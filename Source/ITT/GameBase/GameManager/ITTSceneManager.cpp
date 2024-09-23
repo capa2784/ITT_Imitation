@@ -34,9 +34,9 @@ void UITTSceneManager::Initialize()
 
 void UITTSceneManager::PostInitialize()
 {
-#if !WITH_EDITOR
+//#if !WITH_EDITOR
 	LoadFirstScene();
-#endif // WITH_EDITOR
+//#endif // WITH_EDITOR
 }
 
 void UITTSceneManager::PreFinalize()
