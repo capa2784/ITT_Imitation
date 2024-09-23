@@ -13,7 +13,11 @@ public class ITT : ModuleRules
     	PrivateIncludePaths.Add("ITT");
     	PrivateIncludePaths.Add("ITT/Utility");
     		
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput" });
+		PublicDependencyModuleNames.AddRange(new string[]
+		{
+			"Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput",
+			"CommonUI", "Slate", "SlateCore", "UMG"
+		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 	}
