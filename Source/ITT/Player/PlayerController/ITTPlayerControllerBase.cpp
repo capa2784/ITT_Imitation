@@ -5,7 +5,7 @@
 
 
 AITTPlayerControllerBase::AITTPlayerControllerBase(const FObjectInitializer& ObjectInitializer)
-	: Super(ObjectInitializer), PlayerCharacter(EITTCharacter_Player::Cody)
+	: Super(ObjectInitializer)
 {
 	// Set mouse cursor
 	SetShowMouseCursor(true);

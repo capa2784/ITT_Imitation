@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
-#include "Character/ITTDefine_Character.h"
 #include "ITTPlayerControllerBase.generated.h"
 
 /**
@@ -20,18 +19,4 @@ public:
 
 	
 	virtual void PreInitialize(class ULocalPlayer* LocalPlayer);
-
-
-	// ==================== Getter ==================== //
-	// ========== Character ========== //
-	EITTCharacter_Player GetPlayerCharacter() const { return PlayerCharacter; }
-	// =============================== //
-	// ================================================ //
-
-	
-protected:
-	// ========== Character ========== //
-	UPROPERTY(Category = ITT, EditAnywhere)
-	EITTCharacter_Player PlayerCharacter;
-	// =============================== //
 };

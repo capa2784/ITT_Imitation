@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "ITTPlayerControllerBase.h"
+#include "ITTPlayerController_InGame.h"
 #include "ITTPlayerController_LocalMultiplay.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class ITT_API AITTPlayerController_LocalMultiplay : public AITTPlayerControllerBase
+class ITT_API AITTPlayerController_LocalMultiplay : public AITTPlayerController_InGame
 {
 	GENERATED_BODY()
 

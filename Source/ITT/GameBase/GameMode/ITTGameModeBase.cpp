@@ -7,7 +7,6 @@
 #include "GameFramework/GameSession.h"
 
 #include "Player/PlayerController/ITTPlayerControllerBase.h"
-#include "Character/Player/ITTCharacter_Player.h"
 
 
 AITTGameModeBase::AITTGameModeBase()
@@ -55,26 +54,3 @@ APlayerController* AITTGameModeBase::Login(UPlayer* NewPlayer, ENetRole InRemote
 
 	return NewPlayerController;
 }
-
-void AITTGameModeBase::BeginPlay()
-{
-	Super::BeginPlay();
-
-	AdjustPlayer();
-}
-
-
-// ========== Player ========== //
-UClass* AITTGameModeBase::GetDefaultPawnClassForController_Implementation(AController* InController)
-{
-	if (AITTPlayerControllerBase* ITTPlayerController = Cast<AITTPlayerControllerBase>(InController))
-	{
-		if (PlayerCharacterClasses.Contains(ITTPlayerController->GetPlayerCharacter()))
-		{
-			return *PlayerCharacterClasses.Find(ITTPlayerController->GetPlayerCharacter());
-		}
-	}
-
-	return nullptr;
-}
-// ============================ //
