@@ -24,8 +24,6 @@ UITTSceneManager::UITTSceneManager()
 
 void UITTSceneManager::BuiltInInitialize()
 {
-	TITTSingleton<UITTSceneManager>::BuiltInInitialize();
-
 	CreateHelper();
 	CreateSceneStateMachine();
 }
@@ -58,8 +56,6 @@ void UITTSceneManager::BuiltInFinalize()
 
 void UITTSceneManager::Tick(float DeltaTime)
 {
-	TITTSingleton<UITTSceneManager>::Tick(DeltaTime);
-
 	if (CurrentScene)
 	{
 		CurrentScene->Tick(DeltaTime);
