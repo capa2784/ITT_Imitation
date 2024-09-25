@@ -126,7 +126,7 @@ void UITTSceneManager::ChangeScene(EITTSceneType NextSceneType, EITTLoadingType 
 {
 	if (IsValid(CurrentScene))
 	{
-		SceneStateMachine->SetNextState(static_cast<uint32>(NextSceneType));
+		SceneStateMachine->SetNextState(static_cast<uint32>(NextSceneType), false);
 		
 		CurrentScene->OnReadyToFinishDelegate = FITTOnReadyToFinishDelegate::CreateLambda([this, LoadingType]()
 		{
