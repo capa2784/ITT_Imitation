@@ -4,6 +4,7 @@
 #include "ITTPlayerController_Title.h"
 
 
-AITTPlayerController_Title::AITTPlayerController_Title()
+AITTPlayerController_Title::AITTPlayerController_Title(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer)
 {
 }

@@ -32,7 +32,9 @@ enum class EITTSceneType : uint32
 	None = 0b0,
 	
 	Logo = 0b01,
-	Title = 0b10
+	Title = 0b10,
+	LocalPlay_SelectInput = 0b11,
+	LocalPlay_SelectCharacter = 0b100
 };
 
 UENUM()

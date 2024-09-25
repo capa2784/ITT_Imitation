@@ -15,5 +15,5 @@ class ITT_API AITTPlayerController_Title : public AITTPlayerControllerBase
 	GENERATED_BODY()
 
 public:
-	AITTPlayerController_Title();
+	AITTPlayerController_Title(const FObjectInitializer& ObjectInitializer);
 };
